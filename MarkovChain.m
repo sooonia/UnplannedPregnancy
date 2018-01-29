@@ -29,10 +29,10 @@ end
 i
 newmat
 %calculating n-step matrices
-p2v1 = matorig^2;
-p5v1 = matorig^5;
-p10v1 = matorig^10;
-p30v1 = matorig^30;
+p2v1 = array2table(matorig^2);
+p5v1 = array2table(matorig^5);
+p10v1 = array2table(matorig^10);
+p30v1 = array2table(matorig^30);
 p2v1
 p5v1
 p10v1
@@ -50,11 +50,16 @@ matorig2 = [.78, 0, 0, 0, 0, 0, 0, .22;
 newmat2 = eye(8);
 mat2 = matorig2;
 i=1;
+%i,IUD, pill, FAM
+record = [0,0,0,0];
 %determining number of iterations for initial model to reach equalibrium
 while(not(sum(sum(newmat2 - mat2 < e))==64))
     mat2=newmat2;
     newmat2 = mat2*matorig2;
     i= i+1;
+    recording = [i,newmat2(3,8),newmat2(6,8),newmat2(2,8)];
+    temp = [record; recording];
+    record = temp;
     
 end
 i
