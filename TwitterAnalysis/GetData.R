@@ -55,26 +55,11 @@ setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 #Call to twitter for tweets containing specific hashtags or words
 #n is the number of tweets requested for each term
 
-x <- c('pregnancy OR planned parenthood OR #istandwithpp OR #standwithpp')
-n <- 10000
+x <- c('#plannedparenthood OR #istandwithplannedparenthood OR #defundplannedparenthood OR #defundpp
+       OR #istandwithpp OR #standwithpp')
+n <- 50000
 tw <- getData(n, x)
-dim(tw)
-View(tw)
+#dim(tw)
 
-getwd()
-setwd('C:/Users/john_allen/Documents/cofc')
-write.csv(tw,file='twitterdata.csv')
+save(tw, file = 'tweets.rda')
 
-
-
-#clean the tweets
-for(j in 1:nrow(g)){
-  str<-as.character(g[j,5])
-  str <- gsub('[[:punct:]]','',str)
-  str<-replace_emoji_identifier(str,emoji_dt = lexicon::hash_emojis_identifier)
-  str<-replace_emoji(str,emoji_dt = lexicon::hash_emojis)
-  str<-replace_emoticon(str, emoticon_dt = lexicon::hash_emoticons)
-  str<-gsub("<...","",str)
-  str<-gsub(" http.*","",str)
-  g[j,5]<-str
-}
