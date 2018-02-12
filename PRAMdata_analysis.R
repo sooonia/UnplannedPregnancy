@@ -1,4 +1,4 @@
-load('data.rda')
+load('PRAMdata.rda')
 
 unintended <- rd[rd$Break_Out == 'Unintended',]
 intended <- rd[rd$Break_Out == 'Intended',]
@@ -10,6 +10,19 @@ intended.bp <- droplevels(intended[intended$QuestionId == 'QUO3',])
 untab <- aggregate(unintended.bp$Sample_Size, by = list(Response = unintended.bp$Response), FUN = sum)
 tab <- aggregate(intended.bp$Sample_Size, by = list(Response = intended.bp$Response), FUN = sum)
 
+#Make bar plot of distribution
+library(ggplot2)
+ggplot(data=tab, aes(x=Response, y=x)) +
+  geom_bar(stat="identity", fill = "darkolivegreen3", color="black") + 
+  ggtitle(paste("Planned Pregnancy:\n",unintended.bp[1,'Question'])) +
+  coord_flip()
+
+ggplot(data=tab, aes(x=Response, y=x)) +
+  geom_bar(stat="identity", fill = "darkolivegreen3", color="black") + 
+  ggtitle(paste("Unplanned Pregnancy:\n", unintended.bp[1,'Question'])) +
+  coord_flip()
+
+#Perform Z-test
 x<-c(untab[2,2],tab[2,2])
 dfun<-as.data.frame(untab)
 as.numeric(dfun$x)
@@ -33,7 +46,6 @@ library(dplyr)
 unique<-unique %>% distinct(QuestionOrder, .keep_all = TRUE)
 
 #prop test for all questions
-
 ids <- as.array(unique$QuestionId)
 length(ids)
 unintended <- rd[rd$Break_Out == 'Unintended',]
