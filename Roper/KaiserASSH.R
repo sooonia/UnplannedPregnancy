@@ -21,28 +21,18 @@ assoc.vars <- c(Q1, 'Q3', 'Q5B', 'Q6', 'Q7', 'Q11A', 'Q12','Q13A', 'Q13B',
                 'Q13C', 'Q14A', 'Q14B', 'Q14C', 'Q14D','Q14E', 'Q16','Q17','Q21A', 
                 'Q21D', 'Q24A', 'Q27C', 'Q30','Q34', 'Q35', 'Q41B', controls)
 new.names<- c('ContributionToUnplannedLackOpenness','ContributionToUnplannedPovertyEducation',
-              'ContributionToUnplannedMoralValues','ContributionToTV','ContributionToUnplannedBadSexEd',
-              'TVTalkSafeSex','TVSexNoConsequences','HaveChildren'
-              9.	 [Q7] “HaveChildrenUnder18”
-              10.	 [Q11A] “EverNotLetKidWatchTV4Sex”
-              11.	 [Q12] 'WhenYouthGetSexInfo',
-              12.	 [Q13A] “'HSSexEd',
-              13.	 [Q13B] “'JHSSexEd',
-              14.	 [Q13C] “'ElementarySexEd',
-              15.	 [Q14A] “'HSTellKidsNoPreMaritSex',
-              16.	 [Q14B] “'HSTellKidsUseProtection',
-              17.	 [Q14C] “'HSTeachBasicsReproduction'”,
-              18.	 [Q14D] “'HSDiscussReady4Sex',
-              19.	 [Q14E] “'HSTeachTalkSexWPartner',
-            'AbstinenceOnlyEdu',
-            'HSProvideCondoms',
-            'TalkToUrKidBasicSex',
-            'TalkToUrKidCondoms',
-            'USAUptightAboutSex',
-            'HardCouplesTalkSex','RelationshipStatus','HadPreMaritSex','NumSexPartners','TalkAbtBirthControl')
+              'ContributionToUnplannedMoralValues','ContributionToUnplannedTV',
+              'ContributionToUnplannedBadSexEd', 'TVTalkSafeSex','TVSexNoConsequences','HaveChildren',
+              'HaveChildrenUnder18',
+              'EverNotLetKidWatchTV4Sex','WhenYouthGetSexInfo','HSSexEd','JHSSexEd','ElementarySexEd',
+              'HSTellKidsNoPreMaritSex','HSTellKidsUseProtection','HSTeachBasicsReproduction',
+              'HSDiscussReady4Sex','HSTeachTalkSexWPartner','AbstinenceOnlyEdu','HSProvideCondoms',
+            'TalkToUrKidBasicSex','TalkToUrKidCondoms','USAUptightAboutSex','HardCouplesTalkSex',
+            'RelationshipStatus','HadPreMaritSex','NumSexPartners','TalkAbtBirthControl',controls)
+setnames(kaiser98, assoc.vars, new.names)
 
-
-Apriori(kaiser98[,assoc.vars], control = Weka_control(N = 20))
+ab.only <- kaiser98[kaiser98$AbstinenceOnlyEdu == "Only abstinence",new.names]
+Apriori(ab.only[,names(ab.only) != 'AbstinenceOnlyEdu'], control = Weka_control(N = 30))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~filter by sex~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 col.list <- c("deepskyblue3", "palevioletred1")
