@@ -53,4 +53,4 @@ whiteblack <- c("white", "black")
 
 
 corrplot(M, order = "hclust", addrect = 2, col = col4(10))
-corrplot(corr,method="square", tl.cex=0.55,tl.col="black",order="hclust", col=col4(10),tl.srt=35)
+corrplot(corr,method="square", tl.cex=0.55,tl.col="black",order="hclust", col=col4(10),tl.srt=35,type="lower")
