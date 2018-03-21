@@ -608,7 +608,7 @@ talk about it enough, or don't need to talk about it?")
 
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KAISER 2017/ J U N K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KAISER 2017~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 kaiser17 <- spss.get("Kaiser17.por", use.value.labels=TRUE)
 setnames(kaiser17, "EDUC2", "Education")
@@ -618,4 +618,13 @@ setnames(kaiser17, "QD8B", "PoliticsGeneral")
 setnames(kaiser17, "QD2B", "Married")
 setnames(kaiser17, "PARTY5", "PoliticalPartyAffiliation")
 
-controls <- c('Education', "AgeCat", "PoliticalAffiliation")
+dict <- data.frame(col.name = character(), description = character())
+for(i in 1:length(colnames(kaiser17))){
+  new.line = data.frame(col.name = colnames(kaiser17)[i], description= label(kaiser17[0,i]))
+  dict = rbind(dict, new.line)
+}
+
+preg.qs <- c('Q13C','Q18AA', 'Q18AB', 'Q20', 'Q21', 'Q22', 'Q23A', 'Q23B', 'Q23C', 'Q23D',
+             'Q24', 'Q25', 'Q26', 'Q27', 'Q29', 'Q29A')
+controls <- c('Education', "AgeCat", "PoliticalPartyAffiliation", 'Income', 'PoliticsGeneral', 'Married')
+td <- kaiser17[,c(preg.qs,controls)]
