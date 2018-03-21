@@ -608,6 +608,15 @@ talk about it enough, or don't need to talk about it?")
 
 
 
+
+
+
+
+
+
+
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KAISER 2017~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 kaiser17 <- spss.get("Kaiser17.por", use.value.labels=TRUE)
@@ -628,3 +637,53 @@ preg.qs <- c('Q13C','Q18AA', 'Q18AB', 'Q20', 'Q21', 'Q22', 'Q23A', 'Q23B', 'Q23C
              'Q24', 'Q25', 'Q26', 'Q27', 'Q29', 'Q29A')
 controls <- c('Education', "AgeCat", "PoliticalPartyAffiliation", 'Income', 'PoliticsGeneral', 'Married')
 td <- kaiser17[,c(preg.qs,controls)]
+
+dict.td <- data.frame(col.name = character(), description = character())
+for(i in 1:length(colnames(td))){
+  new.line = data.frame(col.name = colnames(td)[i], description= label(td[0,i]))
+  dict.td = rbind(dict.td, new.line)
+}
+
+
+col.list <- c('blue', 'deepskyblue', 'green4', 'indianred1', 'red2', 'lavenderblush4')
+
+levels(td$Q18AA)[5:6] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(PoliticalPartyAffiliation),summarise,
+                        prop=as.numeric(prop.table(table(Q18AA))),
+                        Response=as.factor(names(table(Q18AA))))
+order <- c("Very important" , 
+           "Somewhat important", 
+           "Not too important",
+           "Not at all important",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=PoliticalPartyAffiliation)) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  scale_fill_manual(values=col.list)+
+  ylab('Proportion')+
+  ylim(0,1)+
+  theme(axis.text.x = element_text(angle = 15))+
+  ggtitle("How important for private health plans to cover birth control?")
+
+
+levels(td$Q22)[5:6] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(PoliticalPartyAffiliation),summarise,
+                  prop=as.numeric(prop.table(table(Q22))),
+                  Response=as.factor(names(table(Q22))))
+order <- c("Very important" , 
+           "Somewhat important", 
+           "Not too important",
+           "Should not be done",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=PoliticalPartyAffiliation)) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  scale_fill_manual(values=col.list)+
+  ylab('Proportion')+
+  ylim(0,1)+
+  theme(axis.text.x = element_text(angle = 15))+
+  ggtitle("How important for fed gov to provide funding for \nreproductive services?")
