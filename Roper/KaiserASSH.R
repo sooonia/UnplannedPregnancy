@@ -646,6 +646,7 @@ for(i in 1:length(colnames(td))){
 
 
 col.list <- c('blue', 'deepskyblue', 'green4', 'indianred1', 'red2', 'lavenderblush4')
+tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
 
 levels(td$Q18AA)[5:6] <- c("Don't know","Refused")
 td.scaled <-ddply(td,.(PoliticalPartyAffiliation),summarise,
@@ -687,3 +688,164 @@ ggplot(data=td.scaled, aes(x=Response, y=prop, fill=PoliticalPartyAffiliation)) 
   ylim(0,1)+
   theme(axis.text.x = element_text(angle = 15))+
   ggtitle("How important for fed gov to provide funding for \nreproductive services?")
+
+
+#-------INCOME-----------------
+
+#how does income relate to political affiliation?
+plot(table(td$PoliticalPartyAffiliation,td$Income))
+
+# Qualitative color schemes by Paul Tol
+tol1qualitative=c("#4477AA")
+tol2qualitative=c("#4477AA", "#CC6677")
+tol3qualitative=c("#4477AA", "#DDCC77", "#CC6677")
+tol4qualitative=c("#4477AA", "#117733", "#DDCC77", "#CC6677")
+tol5qualitative=c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677")
+tol6qualitative=c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677","#AA4499")
+tol7qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#DDCC77", "#CC6677","#AA4499")
+tol8qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677","#AA4499")
+tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
+tol10qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499")
+tol11qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499")
+tol12qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#AA4466", "#882255", "#AA4499")
+
+c('Q13C','Q18AA', 'Q18AB', 'Q20', 'Q21', 'Q22', 'Q23A', 'Q23B', 'Q23C', 'Q23D',
+  'Q24', 'Q25', 'Q26', 'Q27', 'Q29', 'Q29A')
+
+#   ---Q13C---
+levels(td$Q13C)[3:4] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q13C))),
+                  Response=as.factor(names(table(Q13C))))
+order <- c("Yes, the law does this" , 
+           "No, law does not do this", 
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("Does 2010 law eliminate birth control costs for women?")
+
+#   ---Q21---
+levels(td$Q21)[1:6] <- c("Government","Insurance Company","Woman Herself","None of these","Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q21))),
+                  Response=as.factor(names(table(Q21))))
+order <- c("Government",
+           "Insurance Company",
+           "Woman Herself",
+           "None of these",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("Who should pay for birth control in case of company religious exception?")
+
+#   ---Q23A---
+#   ---Q23B---
+#   ---Q23C---
+#   ---Q23D---
+#   ---Q24---
+#   ---Q25---
+#   ---Q26---
+#   ---Q27--
+#   ---Q29---
+#   ---Q29A---
+
+#   ---Q18AA---
+
+levels(td$Q18AA)[5:6] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q18AA))),
+                  Response=as.factor(names(table(Q18AA))))
+order <- c("Very important" , 
+           "Somewhat important", 
+           "Not too important",
+           "Should not be done",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("How important private companies pay birth control no expense to women?")
+
+#   ---Q18AB---
+
+levels(td$Q18AB)[5:6] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q18AB))),
+                  Response=as.factor(names(table(Q18AB))))
+order <- c("Very important" , 
+           "Somewhat important", 
+           "Not too important",
+           "Should not be done",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("How important for private health plans to cover pregnant women?")
+
+#   ---Q20---
+
+levels(td$Q20)[3:4] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q20))),
+                  Response=as.factor(names(table(Q20))))
+order <- c("Support" , 
+           "Oppose", 
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("View on requirement private companies cover full cost birth control?")
+
+#   ---Q22---
+
+levels(td$Q22)[5:6] <- c("Don't know","Refused")
+td.scaled <-ddply(td,.(Income),summarise,
+                  prop=as.numeric(prop.table(table(Q22))),
+                  Response=as.factor(names(table(Q22))))
+order <- c("Very important" , 
+           "Somewhat important", 
+           "Not too important",
+           "Should not be done",
+           "Don't know",
+           "Refused")
+td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    scale_fill_manual(values=tol9qualitative)+
+    ylab('Proportion')+
+    ylim(0,1)+
+    theme(axis.text.x = element_text(angle = 15))+
+    ggtitle("How important for fed gov to provide funding for \nreproductive services?")
+
