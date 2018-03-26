@@ -716,6 +716,13 @@ setnames(kaiser17, "QD8B", "PoliticsGeneral")
 setnames(kaiser17, "QD2B", "Married")
 setnames(kaiser17, "PARTY5", "PoliticalPartyAffiliation")
 
+
+levels(td$PoliticsGeneral)[4] <- "Don't know/Refused"
+levels(td$Income)[9] <- 'Don\'t know/Refused'
+levels(td$Education) <- c("< HS", "HS incomplete", "HS", "Some College", 
+                          "2 year associate degree", "4 year college", "some postgrad",
+                          "postgrad +", "Don't know/Refused")
+
 #   ---Q13C---
 
 #education
@@ -1716,7 +1723,7 @@ ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Education)) +
     ylab('Proportion')+
     ylim(0,1)+
     theme(axis.text.x = element_text(angle = 15))+
-    ggtitle("As far as you know, is there a ban on federal Medicaid funds being used to pay for abortions, or not?")
+    ggtitle("As far as you know, is there a ban on federal Medicaid \nfunds being used to pay for abortions, or not?")
 
 #income
 
@@ -1731,7 +1738,7 @@ ggplot(data=td.scaled, aes(x=Response, y=prop, fill=Income)) +
     ylab('Proportion')+
     ylim(0,1)+
     theme(axis.text.x = element_text(angle = 15))+
-    ggtitle("As far as you know, is there a ban on federal Medicaid funds being used to pay for abortions, or not?")
+    ggtitle("As far as you know, is there a ban on federal Medicaid \nfunds being used to pay for abortions, or not?")
 
 #agecat
 
