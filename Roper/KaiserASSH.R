@@ -645,7 +645,7 @@ for(i in 1:length(colnames(td))){
 }
 
 
-col.list <- c('blue', 'deepskyblue', 'green4', 'indianred1', 'red2', 'lavenderblush4')
+col.list <- c('#4477AA', 'deepskyblue', 'palegreen3', '#CC6677', 'firebrick', 'lavenderblush4')
 tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
 
 levels(td$Q18AA)[5:6] <- c("Don't know","Refused")
@@ -699,7 +699,7 @@ plot(table(td$PoliticalPartyAffiliation,td$Income))
 tol1qualitative=c("#4477AA")
 tol2qualitative=c("#4477AA", "#CC6677")
 tol3qualitative=c("#4477AA", "#DDCC77", "#CC6677")
-tol4qualitative=c("#4477AA", "#117733", "#DDCC77", "#CC6677")
+tol4qualitative=c("#4477AA", "palegreen3", "#CC6677", "lavenderblush4")
 tol5qualitative=c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677")
 tol6qualitative=c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677","#AA4499")
 tol7qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#DDCC77", "#CC6677","#AA4499")
@@ -880,7 +880,7 @@ ggplot(data=td.scaled, aes(x=Response, y=prop, fill=PoliticsGeneral)) +
     ylab('Proportion')+
     ylim(0,1)+
     theme(axis.text.x = element_text(angle = 15))+
-    ggtitle("How important private companies pay birth control no expense to women?")
+    ggtitle("How important for private health plans to cover birth control?")
 
 #married
 
