@@ -1,4 +1,5 @@
 library(ggplot2)
+library(corrplot)
 
 load('PRAMdata.rda')
 
@@ -45,6 +46,11 @@ temp <- droplevels(unintended[unintended$Break_Out_Category == 'Income (years 20
 temp <- droplevels(temp[temp$Response != '', rel.cols])
 temp <- na.omit(temp)
 scaled <- data.frame(Break_Out = factor(), Response = factor(), total = integer())
+corr <- scaled
+corr$med_inc <- c(12500,12500, 37500,37500, 99000,99000,5000, 5000)
+corr$Break_Out <- as.numeric(corr$Break_Out)
+cor(corr[corr$Response == 'Yes', 'med_inc'],corr[corr$Response == 'Yes', 'total'])
+
 for(bo in levels(temp$Break_Out)){
   t <- temp[temp$Break_Out == bo, ]
   tot_answers <- sum(t$Sample_Size)
