@@ -48,8 +48,11 @@ temp <- na.omit(temp)
 scaled <- data.frame(Break_Out = factor(), Response = factor(), total = integer())
 corr <- scaled
 corr$med_inc <- c(12500,12500, 37500,37500, 99000,99000,5000, 5000)
-corr$Break_Out <- as.numeric(corr$Break_Out)
 cor(corr[corr$Response == 'Yes', 'med_inc'],corr[corr$Response == 'Yes', 'total'])
+cor(corr[corr$Response == 'Yes', 'med_inc'],corr[corr$Response == 'Yes', 'prop'])
+cor(corr[corr$Response == 'No', 'med_inc'],corr[corr$Response == 'No', 'total'])
+cor(corr[corr$Response == 'No', 'med_inc'],corr[corr$Response == 'No', 'prop'])
+
 
 for(bo in levels(temp$Break_Out)){
   t <- temp[temp$Break_Out == bo, ]
@@ -140,6 +143,13 @@ for(bo in levels(temp$Break_Out)){
 levels(scaled$Break_Out) <- c('Less than 12 years', 'More than 12 years', '12 years')
 order <- c('Less than 12 years', '12 years', 'More than 12 years')
 scaled$Break_Out <- factor(scaled$Break_Out, order)
+
+corr <- scaled
+corr$edu <- c(8,8, 16,16, 12,12)
+cor(corr[corr$Response == 'Yes', 'edu'],corr[corr$Response == 'Yes', 'total'])
+cor(corr[corr$Response == 'Yes', 'edu'],corr[corr$Response == 'Yes', 'prop'])
+cor(corr[corr$Response == 'No', 'edu'],corr[corr$Response == 'No', 'total'])
+cor(corr[corr$Response == 'No', 'edu'],corr[corr$Response == 'No', 'prop'])
 
 ggplot(scaled, aes(x=Response, y= prop, fill=Break_Out)) +
   geom_bar(stat = 'identity', position = 'dodge') +
