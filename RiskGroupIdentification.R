@@ -57,10 +57,10 @@ cor(corr[corr$Response == 'No', 'med_inc'],corr[corr$Response == 'No', 'prop'])
 for(bo in levels(temp$Break_Out)){
   t <- temp[temp$Break_Out == bo, ]
   tot_answers <- sum(t$Sample_Size)
-  scaled <- rbind(scaled, data.frame(Break_Out = bo, Response = 'Yes',
+  scaled <- rbind(scaled, data.frame(Break_Out = bo, Response = 'Unplanned',
                                      prop = sum(t[t$Response == 'YES', 'Sample_Size'])/tot_answers,
                                      total = sum(t[t$Response == 'YES', 'Sample_Size'])))
-  scaled <- rbind(scaled, data.frame(Break_Out = bo, Response = 'No',
+  scaled <- rbind(scaled, data.frame(Break_Out = bo, Response = 'Planned',
                                      prop = sum(t[t$Response == 'NO', 'Sample_Size'])/tot_answers,
                                      total = sum(t[t$Response == 'NO', 'Sample_Size'])))
   

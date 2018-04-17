@@ -63,6 +63,8 @@ order <- c("Yes" ,
            "NA")
 td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
 
+levels(td.scaled$Response) <- c( "Yes (Correct)", "No", "NA" )
+
 ggplot(data=td.scaled[td.scaled$Response != 'NA',], aes(x=Response, y=prop, fill=Income)) +
   geom_bar(stat = 'identity', position = 'dodge') +
   scale_fill_manual(values=tol8qualitative)+
@@ -136,6 +138,8 @@ order <- c("Yes" ,
            "No", 
            "NA")
 td.scaled$Response <- factor(as.factor(td.scaled$Response), order)
+
+levels(td.scaled$Response) <- c("Yes (Correct)", "No", "NA" )
 
 ggplot(data=td.scaled[td.scaled$Response != 'NA',], aes(x=Response, y=prop, fill=Income)) +
   geom_bar(stat = 'identity', position = 'dodge') +
